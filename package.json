@@ -4,7 +4,11 @@
   "description": "ManchesterCodes book library project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "node scripts/create-database.js test",
+    "test": "NODE_ENV=test mocha src/**/*.js --exit --recursive --timeout 60000 --file .src/tests/test-setup.js",
+    "posttest": "node scripts/drop-database.js",
+    "prestart": "node scripts/create-database.js",
+    "start": "nodemon -r dotenv/config index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +21,12 @@
   },
   "homepage": "https://github.com/MaJaWh/book-library#readme",
   "dependencies": {
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mysql2": "^2.3.3"
+    "mocha": "^10.1.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.0"
   }
 }
